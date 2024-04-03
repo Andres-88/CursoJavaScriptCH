@@ -7,6 +7,43 @@ class Jugador{
     }
 }
 //---------------------------FUNCIONES---------------------------
+//Selector de Juego
+function selector(){
+    // seleccionado = document.querySelector(".games:checked");
+    // console.log(seleccionado.value);
+    let juegoSeleccionado = parseInt(seleccionado);
+    
+    if (seleccionado) {
+        // seleccionado = parseInt(seleccionado.value);
+        switch(seleccionado){
+            case 1:
+        
+                juego1();
+        
+            break;
+                
+            case 2:
+        
+                juego2();    
+        
+            break;
+        
+            case 3:
+        
+                let jugador = prompt("Ingresá tu nombre:");
+                juego3(jugador);
+        
+            break;
+        
+            case 4:
+        
+                juego4();
+        
+        }
+    }else{
+        alert("Por favor, selecciona un juego antes de empezar.");
+    }    
+}
 
 //Carga Jugadores
 const cargaPlayers = (cantPlayers) => {
@@ -268,30 +305,28 @@ function juego4(){
 // ---------------------------MAIN---------------------------
 
 const players = [];
-let opcion = parseInt(prompt("Ingrese tipo de juego: \n 1- Tablas\n 2- Ruleta Rusa\n 3- Piedra, papel o tijera\n 4- Traga Monedas"));
+// let opcion = parseInt(prompt("Ingrese tipo de juego: \n 1- Tablas\n 2- Ruleta Rusa\n 3- Piedra, papel o tijera\n 4- Traga Monedas"));
+let seleccionado = null;
+let radio1 = document.querySelector("#tablas");
+let radio2 = document.querySelector("#ruletaRusa");
+let radio3 = document.querySelector("#ppt");
+let radio4 = document.querySelector("#tm");
 
-switch(opcion){
-    case 1:
+radio1.addEventListener("click", cambiarSelector);
+radio2.addEventListener("click", cambiarSelector);
+radio3.addEventListener("click", cambiarSelector);
+radio4.addEventListener("click", cambiarSelector);
 
-        juego1();
 
-    break;
-        
-    case 2:
+let btnEmpezar = document.getElementById("empezar");
+btnEmpezar = addEventListener("click", btnPrueba);
 
-        juego2();    
-
-    break;
-
-    case 3:
-
-        let jugador = prompt("Ingresá tu nombre:");
-        juego3(jugador);
-
-    break;
-
-    case 4:
-
-        juego4();
-
+function btnPrueba(){
+    selector();
 }
+
+function cambiarSelector(){
+    seleccionado = document.querySelector(".games:checked").value;
+}
+
+

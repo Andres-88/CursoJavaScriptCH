@@ -4,11 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
     <title>Entrega</title>
 </head>
 <body>
-
-    
-    <script src="js/main.js"></script>
+    <h2>¡Bienvenido!</h2>
+    <h3>Selecciona un juego</h3>
+    <div>
+        <div>
+            <label for="tablas">Tablas</label>
+            <input type="radio" name="juego" id="tablas" value="1" class="games">
+        </div>
+        <div>
+            <label for="ruletaRusa">Ruleta Rusa</label>
+            <input type="radio" name="juego" id="ruletaRusa" value="2" class="games">
+        </div>
+        <div>
+            <label for="ppt">Piedra, Papel o Tijeras</label>
+            <input type="radio" name="juego" id="ppt" value="3" class="games">
+        </div>
+        <div>
+            <label for="tm">Traga Monedas</label>
+            <input type="radio" name="juego" id="tm" value="4" class="games">
+        </div>
+        <br>
+        <div>
+            <button id="empezar"> Empezar </button>
+        </div>
+    </div>
 </body>
 </html>
