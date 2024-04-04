@@ -8,9 +8,10 @@
     <title>Entrega</title>
 </head>
 <body>
-    <h2>¡Bienvenido!</h2>
-    <h3>Selecciona un juego</h3>
-    <div>
+    <div id="pantalla">
+        <h2 id="bienvenida">¡Bienvenido!</h2>
+        <h3 id="titulo">Selecciona un juego</h3>
+       <div id="inicio">
         <div>
             <label for="tablas">Tablas</label>
             <input type="radio" name="juego" id="tablas" value="1" class="games">
@@ -29,7 +30,24 @@
         </div>
         <br>
         <div>
-            <button id="empezar"> Empezar </button>
+            <button id="empezar" value="Empezar"> Empezar </button>
+        </div>
+       </div>
+    </div>
+
+    <div id="pantallaTablas">
+
+        <h3 id="tituloTablas" style="display: none;">¡Tablas!</h3>
+
+        <div id="pantallaTablaHija1" style="display: none;">
+            <label for="tablas">Ingresá la cantidad de Jugadores: </label>
+            <input type="number" id="cantJugadoresTabla" name="juego" placeholder="Ingresar la cantidad de Jugadores">
+            <button id="btnCantJugTab"> Aceptar </button>
+        </div>
+
+        <div id="pantallaTablaHija2" style="display: none;">
+            <label for="nombreJugadorTabla">Ingrese nombre del jugador:</label>
+            <input type="text" name="" id="nombreJugadorTabla" placeholder="Ingresar nombre de jugador">
         </div>
     </div>
 </body>

@@ -7,15 +7,45 @@ class Jugador{
     }
 }
 //---------------------------FUNCIONES---------------------------
+
+//Borrador de la primer pantalla
+function removePantallaInicio(){
+    let removePantallaInicio = document.getElementById('inicio');
+    let removeh2PantallaInicio = document.getElementById('bienvenida');
+    let removeh3PantallaInicio = document.getElementById('titulo');
+    removePantallaInicio.remove();
+    removeh2PantallaInicio.remove();
+    removeh3PantallaInicio.remove();
+}
+
+//Registrador de cantidad de jugadores
+function registraCantJugadoresTabla(){
+    let pantallaTablaHija2 = document.getElementById('pantallaTablaHija2');
+    pantallaTablaHija1.style.display = 'none';
+    pantallaTablaHija2.style.display = 'block';
+    cantidadJugadores = parseInt(document.getElementById('cantJugadoresTabla').value);
+    // console.log(cantidadJugadores);
+}
+
 //Selector de Juego
 function selector(){
     // seleccionado = document.querySelector(".games:checked");
     // console.log(seleccionado.value);
-    let juegoSeleccionado = parseInt(seleccionado);
+    let juegoSeleccionado = null;
+    let juegos = document.getElementsByClassName('games');
     
-    if (seleccionado) {
+    
+    for(let i = 0; i < juegos.length; i++){
+        if(juegos[i].checked){
+            juegoSeleccionado = juegos[i];
+            // console.log(juegoSeleccionado.value);
+            break;
+        }        
+    }    
+
+    if (juegoSeleccionado) {
         // seleccionado = parseInt(seleccionado.value);
-        switch(seleccionado){
+        switch(parseInt(juegoSeleccionado.value)){
             case 1:
         
                 juego1();
@@ -45,9 +75,10 @@ function selector(){
     }    
 }
 
+
+
 //Carga Jugadores
 const cargaPlayers = (cantPlayers) => {
-
     for(let i = 0; i < cantPlayers; i++){
         let carga = prompt("Ingrese el nombre del jugador " + (i+1));
         carga = carga.toUpperCase();
@@ -59,17 +90,23 @@ const cargaPlayers = (cantPlayers) => {
 // Juego Tablas
 function juego1(){
     const cantAsaltos = 10;
-    let cantJugadores = parseInt(prompt("Ingrese cantidad de jugadores:"));
+    let cantidadJugadores;
+    // let cantJugadores = parseInt(prompt("Ingrese cantidad de jugadores:"));
+    removePantallaInicio();
+    let tituloTabla = document.getElementById('tituloTablas');    
+    let pantallaTablaHija1 = document.getElementById('pantallaTablaHija1');
+    tituloTabla.style.display = 'block';
+    pantallaTablaHija1.style.display = 'block';
+    let btnAceptarTabla = document.getElementById('btnCantJugTab').addEventListener('click', registraCantJugadoresTabla);
+    cargaPlayers(cantidadJugadores);
 
-    cargaPlayers(cantJugadores);
-
-    if(cantJugadores > 1){
-        alert("Tienen que resolver " + cantAsaltos + " productos");
+    if(cantidadJugadores > 1){
+        alert("Tienen que resolver " + cantAsaltos + " productos\nQuien acierte más, ganará");
     }else{
-        alert("Tenés que resolver " + cantAsaltos + " productos\nQuien acierte más, ganará");
+        alert("Tenés que resolver " + cantAsaltos + " productos");
     }
 
-    for(let i = 0; i < cantJugadores; i++){
+    for(let i = 0; i < cantidadJugadores; i++){
         let asalto = 0;
         let factor1;
         let factor2;
@@ -93,19 +130,28 @@ function juego1(){
         alert("¡Felicidades jugador " + players[i].nombre + "! \nTu puntaje es:\n " + players[i].puntaje);
     }
 
-    for(let j = 0; j < players.length; j++){
-        let ganador = new Jugador("Nadie");
-        console.log("Los puntajes son los siguientes:\n" + players[j].nombre + ": " + players[j].puntaje);
-        alert("Los puntajes son los siguientes:\n" + players[j].nombre + ": " + players[j].puntaje);
-        if(players[j].puntaje > ganador){
-            ganador.nombre = players[j].nombre;
-            ganador.puntaje = players[j].puntaje;
-        }
-        console.log("¡El/la ganador/a es: "+ ganador.nombre + "!");
-        alert("¡El/la ganador/a es: "+ ganador.nombre + "!");
+    for(let k = 0; k < players.length; k++){
+        console.log("Los puntajes son los siguientes:\n" + players[k].nombre + ": " + players[k].puntaje);
+        alert("Los puntajes son los siguientes:\n" + players[k].nombre + ": " + players[k].puntaje);
     }
 
+    let ganador = new Jugador("Nadie, es empate");
 
+    for(let j = 0; j < players.length; j++){
+
+        if(players[j].puntaje > ganador.puntaje){
+            ganador.nombre = players[j].nombre;
+            ganador.puntaje = players[j].puntaje;
+        }        
+    }
+
+    if(cantidadJugadores > 1){
+        console.log("¡El/la ganador/a es: "+ ganador.nombre + "!");
+        alert("¡El/la ganador/a es: "+ ganador.nombre + "!");
+    }else{
+        console.log("¡Tu puntaje es: "+ ganador.puntaje + "!");
+        alert("¡Tu puntaje es: "+ ganador.puntaje + "!");
+    }
 }
 
 // Juego Ruleta Rusa
@@ -274,8 +320,11 @@ function juego4(){
             console.log("¡Lástima!\nSigue intentando");
             alert("¡Lástima!\nSigue intentando");
         }
-        console.log("Te quedan: " + (i-1) + " intentos");
-        alert("Te quedan: " + (i-1) + " intentos");
+        
+        if(i>1){
+            console.log("Te quedan: " + (i-1) + " intentos");
+            alert("Te quedan: " + (i-1) + " intentos");
+        }
     }
 
     if(jugadorTraga.puntaje > dineroInicial){
@@ -306,27 +355,6 @@ function juego4(){
 
 const players = [];
 // let opcion = parseInt(prompt("Ingrese tipo de juego: \n 1- Tablas\n 2- Ruleta Rusa\n 3- Piedra, papel o tijera\n 4- Traga Monedas"));
-let seleccionado = null;
-let radio1 = document.querySelector("#tablas");
-let radio2 = document.querySelector("#ruletaRusa");
-let radio3 = document.querySelector("#ppt");
-let radio4 = document.querySelector("#tm");
-
-radio1.addEventListener("click", cambiarSelector);
-radio2.addEventListener("click", cambiarSelector);
-radio3.addEventListener("click", cambiarSelector);
-radio4.addEventListener("click", cambiarSelector);
-
-
-let btnEmpezar = document.getElementById("empezar");
-btnEmpezar = addEventListener("click", btnPrueba);
-
-function btnPrueba(){
-    selector();
-}
-
-function cambiarSelector(){
-    seleccionado = document.querySelector(".games:checked").value;
-}
+let btnEmpezar = document.getElementById('empezar').addEventListener('click', selector);
 
 
